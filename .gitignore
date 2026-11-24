@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.react-router/
+.shopify/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+.DS_Store
+storefront-graphql-env.d.ts
+customer-account-graphql-env.d.ts

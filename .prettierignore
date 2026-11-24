@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+.react-router
+.shopify
+storefront-graphql-env.d.ts
+customer-account-graphql-env.d.ts
+*.tsbuildinfo
+package-lock.json
+pnpm-lock.yaml

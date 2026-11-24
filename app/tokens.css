@@ -1,0 +1,763 @@
+@font-face {
+  font-family: "Red Hat Display";
+  src: url("https://cdn.shopify.com/s/files/1/0659/0178/9340/files/font-RedHatDisplay-VariableFont_wght.woff2?v=1794586532")
+    format("woff2");
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+}
+
+/* Color palette from SATELLAI Web, Figma node 37:1703. */
+@theme static {
+  /* 页面内容宽度及两侧最小边距。 */
+  --page-content-width: 75rem;
+  --page-gutter: 1rem;
+  /* Typography scale (px values assume a 16px root font size).
+     Line heights and weights are set by typo-* utilities. */
+  --font-body: "Red Hat Display", system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-body);
+  --text-typo-xs: 0.75rem; /* 12px */
+  --text-typo-sm: 0.875rem; /* 14px */
+  --text-typo-base: 1rem; /* 16px */
+  --text-typo-lg: 1.125rem; /* 18px */
+  --text-typo-xl: 1.25rem; /* 20px */
+  --text-typo-2xl: 1.5rem; /* 24px */
+  --text-typo-3xl: 1.875rem; /* 30px */
+  --text-typo-4xl: 2.25rem; /* 36px */
+  --text-typo-5xl: 3rem; /* 48px */
+  --text-typo-6xl: 3.75rem; /* 60px */
+  --text-typo-7xl: 4.5rem; /* 72px */
+  --text-typo-8xl: 6rem; /* 96px */
+
+  /* Brand colors */
+  --color-brand-red: #dd1717;
+  --color-brand-ink: #191514;
+  --color-brand-purple: #7f5af0;
+  --color-brand-orange: #f96400;
+  --color-price-sale-label: #ff8c42; /* Figma 31:572 Sale 标签 */
+  --color-brand-grey: #bfc7d5;
+  /* 主题规格卡片中的数值高亮色。 */
+  --color-spec-highlight: #2f6fe0;
+  /* 图文故事的柔和背景色，分别对应四个内容。 */
+  --color-story-sky: #e5eff5;
+  --color-story-sand: #f3ece2;
+  --color-story-lilac: #eceaf3;
+  --color-story-sage: #e7efe9;
+
+  /* Colors shown in the component and promotion examples */
+  --color-red-gradient-start: #ff5145;
+  --color-orange-gradient-start: #f9a000;
+  --color-neutral-white: #fff;
+  --color-neutral-black: #000;
+  --color-neutral-dark: #444;
+  --color-neutral-muted: #666;
+  --color-neutral-subtle: #999;
+  --color-disabled-background: #dadada;
+  --color-disabled-text: #bcbcbc;
+  --color-promotion-red-background: #ffecec;
+  --color-promotion-green: #009945;
+  --color-promotion-green-background: #eafff4;
+
+  /* Storefront semantic colors. */
+  --color-primary: var(--color-brand-red);
+  --color-interactive: var(--color-brand-red);
+  --color-interactive-hover: var(--color-brand-red);
+  --color-interactive-active: var(--color-brand-red);
+  --color-interactive-text: var(--color-neutral-white);
+  --color-accent: var(--color-brand-red);
+  --color-surface: var(--color-neutral-white);
+  --color-surface-secondary: color-mix(
+    in srgb,
+    var(--color-brand-grey) 15%,
+    white
+  );
+  --color-on-surface: var(--color-brand-ink);
+  --color-on-surface-secondary: var(--color-neutral-muted);
+  --color-border: color-mix(in srgb, var(--color-brand-grey) 50%, transparent);
+  --color-sale: var(--color-brand-red);
+  --color-compare: var(--color-neutral-dark);
+  --color-critical: var(--color-brand-red);
+  --color-success: var(--color-promotion-green);
+  --color-warning: var(--color-brand-orange);
+  --color-info: var(--color-brand-purple);
+  --color-button-primary: var(--color-brand-red);
+  --color-button-primary-hover: var(--color-brand-red);
+  --color-button-primary-active: var(--color-brand-red);
+  --color-button-primary-text: var(--color-neutral-white);
+  --color-button-secondary: var(--color-brand-ink);
+  --color-button-secondary-text: var(--color-neutral-white);
+  --color-button-outline-border: var(--color-brand-ink);
+  --color-button-outline-text: var(--color-brand-ink);
+  /* Figma 37:1703 — shared button geometry and control fills. */
+  --spacing-button-sm: 2.25rem;
+  --spacing-button-md: 3rem;
+  --spacing-button-lg: 3.5rem;
+  --spacing-button-padding-sm: 1.5rem;
+  --spacing-button-padding-md: 2rem;
+  --spacing-button-padding-lg: 2.25rem;
+  --spacing-button-icon-sm: 2.25rem;
+  --spacing-button-icon-md: 2.75rem;
+  --spacing-button-icon-lg: 3.125rem;
+  --radius-button: 6.25rem;
+  --color-button-control: rgb(25 21 20 / 0.3);
+  --color-button-control-hover: rgb(25 21 20 / 0.6);
+  /* Shop Pay maintains its own brand color. */
+  --color-button-shop-pay: #5433eb;
+  --color-button-shop-pay-text: var(--color-neutral-white);
+
+  --color-overlay: rgb(25 21 20 / 0.95);
+  --color-overlay-strong: rgb(25 21 20 / 0.7);
+  --color-overlay-subtle: rgb(25 21 20 / 0.5);
+  --color-overlay-scrim: rgb(25 21 20 / 0.25);
+  --color-hover: rgb(25 21 20 / 0.03);
+}
+
+:root {
+  --gradient-button-primary: linear-gradient(
+    to right,
+    var(--color-red-gradient-start),
+    var(--color-brand-red)
+  );
+  --gradient-button-preorder: linear-gradient(
+    to right,
+    var(--color-orange-gradient-start),
+    var(--color-brand-orange)
+  );
+}
+
+/* 普通内容容器：最大内容宽度不包含两侧边距。 */
+@utility content-container {
+  width: min(var(--page-content-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+}
+
+/* 全屏轮播轨道保持通栏，只有首尾和滚动位置对齐内容容器。 */
+@utility content-edge-viewport {
+  scroll-padding-inline: max(
+    var(--page-gutter),
+    calc((100% - var(--page-content-width)) / 2)
+  );
+}
+@utility content-edge-track {
+  & > :first-child {
+    margin-inline-start: max(
+      var(--page-gutter),
+      calc((100% - var(--page-content-width)) / 2)
+    );
+  }
+  & > :last-child {
+    margin-inline-end: max(
+      var(--page-gutter),
+      calc((100% - var(--page-content-width)) / 2)
+    );
+  }
+}
+
+/* Reserve the page scrollbar's space before any modal locks scrolling. */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Covers every modal drawer, including native close and Escape handling. */
+html:has(dialog:modal) {
+  overflow: hidden;
+}
+
+/* Hide the scrollbar without disabling scrolling on the element. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Each utility has a fixed size; use md: or xl: to select a larger style.
+   Pixel sizes assume a 16px root font size. */
+
+/* Display: 96px, line-height 1, weight 300. */
+@utility typo-display-xl {
+  @apply text-typo-8xl font-light; /* 96px */
+}
+
+/* Display: 72px, line-height 1.05, weight 300. */
+@utility typo-display-lg {
+  @apply text-typo-7xl font-light leading-[1.05]; /* 72px */
+}
+
+/* Display: 36px, line-height 1.15, weight 300. */
+@utility typo-display {
+  @apply text-typo-4xl font-light leading-[1.15]; /* 36px */
+}
+
+/* Heading: 60px, line-height 1.1, weight 300. */
+@utility typo-heading-3xl {
+  @apply text-typo-6xl font-light leading-[1.1]; /* 60px */
+}
+
+/* Heading: 48px, line-height 1.1, weight 300. */
+@utility typo-heading-2xl {
+  @apply text-typo-5xl font-light leading-[1.1]; /* 48px */
+}
+
+/* Heading: 30px, line-height 1.2, weight 300. */
+@utility typo-heading-xl {
+  @apply text-typo-3xl font-light leading-[1.2]; /* 30px */
+}
+
+/* Heading: 24px, line-height 1.2, weight 300. */
+@utility typo-heading-lg {
+  @apply text-typo-2xl font-light leading-[1.2]; /* 24px */
+}
+
+/* Heading: 20px, line-height 1.3, weight 400. */
+@utility typo-heading-md {
+  @apply text-typo-xl; /* 20px */
+}
+
+/* Heading: 18px, line-height 1.3, weight 400. */
+@utility typo-heading-sm {
+  @apply text-typo-lg; /* 18px */
+}
+
+/* Body: 20px, line-height 1.5, weight inherited. */
+@utility typo-body-xl {
+  @apply text-typo-xl; /* 20px */
+}
+
+/* Body: 18px, line-height 1.5, weight inherited. */
+@utility typo-body-lg {
+  @apply text-typo-lg; /* 18px */
+}
+
+/* Body: 16px, line-height 1.5, weight inherited. */
+@utility typo-body {
+  @apply text-typo-base; /* 16px */
+}
+
+/* Body: 14px, line-height 1.5, weight inherited. */
+@utility typo-body-sm {
+  @apply text-typo-sm; /* 14px */
+}
+
+/* Body: 12px, line-height 1.5, weight inherited. */
+@utility typo-body-xs {
+  @apply text-typo-xs; /* 12px */
+}
+
+/* Overline: 12px, line-height 1.5, weight 500. */
+@utility typo-overline {
+  @apply text-typo-xs font-medium uppercase; /* 12px */
+}
+
+/* Figma button type styles: separate from the lighter page-heading scale. */
+@utility typo-button-sm {
+  @apply text-typo-sm font-semibold; /* 14px */
+}
+@utility typo-button-md {
+  @apply text-typo-base font-bold; /* 16px */
+}
+@utility typo-button-lg {
+  @apply text-typo-lg font-bold; /* 18px */
+}
+
+/* 页面动效 token。 */
+@theme static {
+  --reveal-duration: 1600ms;
+  --reveal-step: 280ms;
+  --reveal-distance: 1.25rem;
+  --reveal-ease: linear;
+  --motion-disclosure-duration: 650ms;
+  --motion-overlay-duration: 500ms;
+  --motion-overlay-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@utility reveal-pending {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+}
+@utility card-image-motion {
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    & img {
+      transition: transform var(--motion-disclosure-duration)
+        var(--motion-overlay-ease);
+    }
+    &:hover img {
+      transform: scale(1.04);
+    }
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility campaign-ticker {
+  animation: marquee 35s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@utility recognition-ticker {
+  animation: marquee 26s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+@utility disclosure-content {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: disclosure-enter 480ms var(--motion-overlay-ease) 100ms backwards;
+  }
+}
+@keyframes disclosure-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility typo-video-mask {
+  @apply text-[clamp(1.75rem,7cqw,4.5rem)] font-extrabold leading-[1.05] whitespace-pre-line text-center wrap-break-word;
+}
+@utility video-mask {
+  transition:
+    transform var(--reveal-duration) var(--motion-overlay-ease),
+    opacity var(--reveal-duration) var(--motion-overlay-ease);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@keyframes video-mask-arrive {
+  from {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes video-mask-depart {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+}
+@utility video-mask-arrive {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: video-mask-arrive var(--reveal-duration)
+      var(--motion-overlay-ease) both;
+  }
+}
+@utility video-mask-depart {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: video-mask-depart var(--reveal-duration)
+      var(--motion-overlay-ease) both;
+  }
+}
+
+/* 页面模块间距：移动端 60px，1280px 起 120px。 */
+@utility pb-section {
+  @apply pb-15 xl:pb-30;
+}
+@utility pt-section {
+  @apply pt-15 xl:pt-30;
+}
+@utility gap-section {
+  @apply gap-15 xl:gap-30;
+}
+@utility accordion-icon {
+  transition:
+    transform var(--motion-disclosure-duration) var(--motion-overlay-ease),
+    background-color 250ms ease,
+    color 250ms ease;
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+@utility app-screen {
+  transition:
+    opacity 480ms ease,
+    translate 480ms var(--motion-overlay-ease),
+    scale 480ms var(--motion-overlay-ease);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/* 色卡纹理只叠加明暗，保留后台提供的颜色和图片。 */
+@utility knit-texture {
+  background-image:
+    repeating-linear-gradient(
+      55deg,
+      transparent 0 2px,
+      rgb(255 255 255 / 0.24) 2px 3px,
+      rgb(0 0 0 / 0.18) 3px 4px
+    ),
+    repeating-linear-gradient(
+      125deg,
+      transparent 0 2px,
+      rgb(0 0 0 / 0.18) 2px 3px,
+      rgb(255 255 255 / 0.12) 3px 4px
+    );
+  background-size: 6px 6px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+  pointer-events: none;
+}
+
+/* 商品价格和标签：字号复用全站 token，字体随页面继承。 */
+@utility typo-price-detail {
+  @apply text-typo-2xl xl:text-typo-3xl font-extrabold; /* 24px / 30px */
+}
+@utility typo-price-detail-compare {
+  @apply text-typo-base xl:text-typo-lg font-medium; /* 16px / 18px */
+}
+@utility typo-price-compact {
+  @apply text-typo-base font-bold; /* 16px */
+}
+@utility typo-price-compact-compare {
+  @apply text-typo-sm font-medium; /* 14px */
+}
+@utility typo-price-saving {
+  @apply text-typo-xs xl:text-typo-sm font-bold; /* 12px / 14px */
+}
+@utility typo-product-badge {
+  @apply text-typo-sm font-semibold; /* 14px */
+}
+
+/* 商品选项和首屏文字：字号、字重及行高使用 Tailwind 工具。 */
+@utility typo-product-option-label {
+  @apply text-typo-xl font-bold; /* 20px */
+}
+@utility typo-product-option-value {
+  @apply text-typo-base font-semibold leading-tight; /* 16px */
+}
+@utility typo-product-title {
+  @apply text-typo-2xl font-bold leading-[1.1]; /* 24px */
+}
+@utility typo-product-title-desktop {
+  @apply text-typo-3xl; /* 30px */
+}
+@utility typo-control-label {
+  @apply text-typo-sm font-medium leading-normal; /* 14px */
+}
+@utility typo-control-label-strong {
+  @apply text-typo-sm font-bold leading-normal; /* 14px */
+}
+@utility typo-price-plan {
+  @apply text-typo-xl font-bold; /* 20px */
+}
+@utility typo-price-plan-tablet {
+  @apply text-typo-2xl; /* 24px */
+}
+@utility typo-price-plan-compare {
+  @apply text-typo-sm font-medium; /* 14px */
+}
+@utility typo-price-plan-compare-tablet {
+  @apply text-typo-lg; /* 18px */
+}
+
+/* 套餐数量区与项目折叠组件保持一致的节奏。 */
+@utility plan-quantity {
+  transition: grid-template-rows var(--motion-disclosure-duration)
+    var(--motion-overlay-ease);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@utility typo-plan-title {
+  @apply text-typo-lg font-bold leading-[1.15]; /* 18px */
+}
+@utility typo-plan-title-tablet {
+  @apply text-typo-xl; /* 20px */
+}
+
+/* 异步操作加载图标：每圈先加速再减速。 */
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@utility loading-spin {
+  animation: loading-spin 1s ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* 规格卡片沿用主题的响应式字重与层级。 */
+@utility typo-spec-title {
+  @apply text-typo-lg font-extrabold leading-[1.15]; /* 18px */
+}
+@utility typo-spec-title-tablet {
+  @apply text-typo-lg; /* 18px */
+}
+@utility typo-spec-title-desktop {
+  @apply text-typo-xl; /* 20px */
+}
+@utility typo-spec-highlight {
+  @apply text-typo-3xl font-extrabold leading-[1.15]; /* 30px */
+}
+@utility typo-spec-highlight-tablet {
+  @apply text-typo-4xl; /* 36px */
+}
+@utility typo-spec-highlight-desktop {
+  @apply text-typo-5xl; /* 48px */
+}
+@utility typo-spec-detail {
+  @apply text-typo-sm leading-[1.35]; /* 14px */
+}
+@utility typo-spec-detail-desktop {
+  @apply text-typo-sm; /* 14px */
+}
+
+/* 图文轮播切换时使用项目折叠动效节奏。 */
+@keyframes story-copy-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@utility story-copy-enter {
+  animation: story-copy-enter 480ms var(--motion-overlay-ease) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* Native dialog transitions retain the top layer during the exit animation. */
+@layer components {
+  .ui-overlay {
+    --overlay-duration: var(--motion-overlay-duration);
+    opacity: 0;
+    transition:
+      opacity var(--overlay-duration) var(--motion-overlay-ease),
+      transform var(--overlay-duration) var(--motion-overlay-ease),
+      overlay var(--overlay-duration) allow-discrete,
+      display var(--overlay-duration) allow-discrete;
+  }
+  .ui-overlay::backdrop {
+    background: transparent;
+    transition:
+      background-color var(--overlay-duration) var(--motion-overlay-ease),
+      overlay var(--overlay-duration) allow-discrete,
+      display var(--overlay-duration) allow-discrete;
+  }
+  .ui-drawer[data-side="right"] {
+    transform: translateX(100%);
+  }
+  .ui-drawer[data-side="left"] {
+    transform: translateX(-100%);
+  }
+  .ui-dialog {
+    transform: translateY(1rem) scale(0.98);
+  }
+  .ui-overlay[open] {
+    opacity: 1;
+    transform: none;
+  }
+  .ui-overlay[open]::backdrop {
+    background: var(--color-overlay-subtle);
+  }
+  @starting-style {
+    .ui-overlay[open] {
+      opacity: 0;
+    }
+    .ui-drawer[data-side="right"][open] {
+      transform: translateX(100%);
+    }
+    .ui-drawer[data-side="left"][open] {
+      transform: translateX(-100%);
+    }
+    .ui-dialog[open] {
+      transform: translateY(1rem) scale(0.98);
+    }
+    .ui-overlay[open]::backdrop {
+      background: transparent;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ui-overlay,
+    .ui-overlay::backdrop {
+      transition: none;
+    }
+  }
+}
+
+/* Keep desktop panels mounted so both opening and closing can transition. */
+@layer components {
+  .navbar-panel {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-0.75rem);
+    transition:
+      opacity var(--motion-overlay-duration) var(--motion-overlay-ease),
+      transform var(--motion-overlay-duration) var(--motion-overlay-ease),
+      visibility var(--motion-overlay-duration) allow-discrete;
+  }
+  .navbar-panel[data-open="true"] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+  .navbar-chevron {
+    transition: transform var(--motion-overlay-duration)
+      var(--motion-overlay-ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .navbar-panel,
+    .navbar-chevron {
+      transition: none;
+    }
+  }
+}
+
+/* Shared field states; geometry and surface colors stay with the caller. */
+@utility form-input {
+  outline: none;
+  box-shadow: none;
+  transition: border-color 250ms var(--motion-overlay-ease);
+  &:focus {
+    border-color: var(--color-accent);
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+@utility form-field {
+  transition: border-color 250ms var(--motion-overlay-ease);
+  &:focus-within {
+    border-color: var(--color-accent);
+  }
+  & input {
+    outline: none;
+    box-shadow: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+@utility header-action {
+  transition:
+    color 200ms var(--motion-overlay-ease),
+    transform 200ms var(--motion-overlay-ease);
+  &:hover {
+    color: var(--color-accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+@layer components {
+  .blog-prose {
+    overflow-wrap: anywhere;
+  }
+  .blog-prose :is(h2, h3, h4) {
+    color: var(--color-on-surface);
+    scroll-margin-top: 6rem;
+  }
+  .blog-prose h2 {
+    @apply mt-12 mb-5 text-typo-3xl font-semibold leading-tight;
+  }
+  .blog-prose h3 {
+    @apply mt-8 mb-4 typo-product-option-label;
+  }
+  .blog-prose h4 {
+    @apply mt-6 mb-3 typo-control-label-strong;
+  }
+  .blog-prose p {
+    @apply my-5;
+  }
+  .blog-prose :is(ul, ol) {
+    @apply my-5 pl-6;
+  }
+  .blog-prose ul {
+    @apply list-disc;
+  }
+  .blog-prose ol {
+    @apply list-decimal;
+  }
+  .blog-prose li {
+    @apply my-2;
+  }
+  .blog-prose a {
+    @apply text-accent underline underline-offset-4;
+  }
+  .blog-prose img {
+    @apply my-8 h-auto max-w-full rounded-xl;
+  }
+  .blog-prose :is(iframe, video) {
+    @apply my-8 aspect-video w-full rounded-xl;
+  }
+  .blog-prose table {
+    @apply my-8 block max-w-full overflow-x-auto border-collapse;
+  }
+  .blog-prose :is(td, th) {
+    @apply border border-border p-3 text-left;
+  }
+  .blog-prose th {
+    @apply bg-surface-secondary font-semibold text-on-surface;
+  }
+  .blog-prose blockquote {
+    @apply my-8 border-l-4 border-accent bg-surface-secondary p-6;
+  }
+  .blog-prose pre {
+    @apply my-6 max-w-full overflow-x-auto rounded-xl bg-surface-secondary p-5;
+  }
+  .blog-prose details {
+    @apply my-6 rounded-xl border border-border p-5;
+  }
+  .blog-prose summary {
+    @apply cursor-pointer font-semibold text-on-surface;
+  }
+}
+
+@layer components {
+  .navigation-progress {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 3px;
+    z-index: 100;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .navigation-progress[data-phase="loading"],
+  .navigation-progress[data-phase="done"] {
+    opacity: 1;
+  }
+  .navigation-progress > div {
+    height: 100%;
+    width: 100%;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .navigation-progress {
+      transition: none;
+    }
+    .navigation-progress > div {
+      transform: none;
+    }
+  }
+}

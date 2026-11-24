@@ -1,0 +1,14 @@
+export function shopifyImageUrl(source: string, { width }: { width: number }) {
+  try {
+    const url = new URL(source);
+    if (
+      ["cdn.shopify.com", "mock.shop"].some(
+        (host) => url.hostname === host || url.hostname.endsWith(`.${host}`),
+      )
+    )
+      url.searchParams.set("width", String(width));
+    return url.toString();
+  } catch {
+    return source;
+  }
+}
